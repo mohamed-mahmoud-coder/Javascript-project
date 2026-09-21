@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Game</title>
+  <link rel="icon" type="image/png" href="images\imge.png.avif" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css?family=Benne:regular" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="screen active" id="start-screen">
+      <h1>Quiz Time!</h1>
+      <p>Test your Knowledge with these fun questions</p>
+      <button id="start-btn">Start</button>
+    </div>
+    <div class="quiz screen" id="quiz-screen">
+      <div class="quiz-header">
+        <h2 id="questions-text">Questions</h2>
+        <div class="quiz-info">
+          <p>
+            Questions <span id="current-question">1</span> of <span>5</span>
+          </p>
+          <p>Score: <span id="current-score">0</span></p>
+        </div>
+      </div>
+      <!-- the class for styling & the id for javascript-->
+      <div class="answers-container" id="answers-continer">
+        <!--Answer buttons will be inserted here from our js code later at some point
+          -->
+      </div>
+      <div class="porgress-bar">
+        <div class="porgress" id="porgress"></div>
+      </div>
+    </div>
+
+    <div class="result screen" id="result-screen">
+      <h1>Quiz Results</h1>
+      <div class="result-info">
+        <p>
+          You Scored <span id="final-score">0</span> out of
+          <span id="max-score"> 5</span>
+        </p>
+        <div id="result-message">Good job</div>
+      </div>
+      <button id="restart-btn">Try again</button>
+    </div>
+  </div>
+</body>
+
+</html>
