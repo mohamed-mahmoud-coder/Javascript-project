@@ -7,7 +7,7 @@ const questionText = document.getElementById("question-text");
 const answersContainer = document.getElementById("answers-container");
 const currentQuestionSpan = document.getElementById("current-question");
 const totalQuestionsSpan = document.getElementById("total-questions");
-const scoreSpan = document.getElementById("score");
+const scoreSpan = document.getElementById("current-score");
 const finalScoreSpan = document.getElementById("final-score");
 const maxScoreSpan = document.getElementById("max-score");
 const resultMessage = document.getElementById("result-message");
@@ -217,7 +217,34 @@ startButton.addEventListener("click", startQuiz);
 restartButton.addEventListener("click", restartQuiz)
 
 function startQuiz() {
-    console.log("quiz started")
+currentQuestionIndex = 0;
+score=0;
+scoreSpan.textContent=0;
+
+
+
+startScreen.classList.remove("active");
+quizScreen.classList.add("active");
+
+showQuestion();
+   
+}
+function showQuestion(){
+    
+    answersDisabled = false;
+    const currentQuestion=allQuestions[currentQuestionIndex]
+     currentQuestionSpan.textContent=currentQuestionIndex+1;
+     const progressPercent =(currentQuestionIndex/allQuestions.length)*100;
+     progressBar.style.width=progressPercent+"%";
+      
+     questionText.textContent=currentQuestion.question;
+
+     answersContainer.innerHTML="";
+     currentQuestion.answers.forEach(answer=>{
+        const button = document.createElement("button") 
+        button.textContent=answer.text
+     })
+
 }
 function restartQuiz() {
     console.log(" Quiz restarted")
