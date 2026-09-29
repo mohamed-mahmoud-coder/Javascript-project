@@ -217,39 +217,101 @@ startButton.addEventListener("click", startQuiz);
 restartButton.addEventListener("click", restartQuiz)
 
 function startQuiz() {
-currentQuestionIndex = 0;
-score=0;
-scoreSpan.textContent=0;
+    currentQuestionIndex = 0;
+    score = 0;
+    scoreSpan.textContent = 0;
 
+    //In short, the `classList` property is a list or record containing all the CSS classes applied to a specific HTML element; it provides you with quick, convenient 
+    // tools (methods) to manage these classes programmatically.
 
+    startScreen.classList.remove("active");
+    quizScreen.classList.add("active");
 
-startScreen.classList.remove("active");
-quizScreen.classList.add("active");
+    showQuestion();
 
-showQuestion();
-   
 }
-function showQuestion(){
-    
+function showQuestion() {
+
     answersDisabled = false;
-    const currentQuestion=allQuestions[currentQuestionIndex]
-     currentQuestionSpan.textContent=currentQuestionIndex+1;
-     const progressPercent =(currentQuestionIndex/allQuestions.length)*100;
-     progressBar.style.width=progressPercent+"%";
-      
-     questionText.textContent=currentQuestion.question;
+    const currentQuestion = currentQuizQuestion[currentQuestionIndex]
+    currentQuestionSpan.textContent = currentQuestionIndex + 1;
+    const progressPercent = (currentQuestionIndex / currentQuizQuestion.length) * 100;
+    progressBar.style.width = progressPercent + "%";
 
-     answersContainer.innerHTML="";
-     currentQuestion.answers.forEach(answer=>{
-        const button = document.createElement("button") 
-        button.textContent=answer.text
-     })
+    questionText.textContent = currentQuestion.question;
+    // Clear the previous answers before showing the new ones
+    answersContainer.innerHTML = "";
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement("button")
+        button.textContent = answer.text
+        button.classList.add("answers-btn")
+        //The `dataset` property (which appears in HTML as `data-*`) is used to store any 
+        // custom data you need within page elements, allowing
+        //  you to read it later using JavaScript or even style it with CSS.
+        button.dataset.correct = answer.correct
+        //In short, any new element that 
+        // suddenly appears on the screen (such as a button, image, text, 
+        // or alert message) after the page has initially loaded was likely added using the `appendChild` method or a similar function. Do you have a specific application or idea in mind
+        //  that you would like to know how to build using this approach?
+        button.addEventListener("click", selectAnswer)
+        answersContainer.appendChild(button)
+    })
 
+}
+function selectAnswer(event) {
+    if (answersDisabled) return
+    answersDisabled = true;
+    const selectedButton = event.target;
+    // Here Array.from() is used to convert the NodeList 
+    // returned by answersContainer.children into an array, 
+    // this is because the NodeList is
+    //not an array and we need to use the forEach method
+    const isCorrect = selectedButton.dataset.correct === "true"
+    Array.from(answersContainer.children).forEach(button => {
+        if (button.dataset.correct === "true") {
+            button.classList.add("correct")
+        } else {
+            button.classList.add("incorrect")
+        }
+
+    })
+    if (isCorrect) {
+        score++;
+        scoreSpan.textContent = score;
+
+    }
+    setTimeout(() => {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < currentQuizQuestion.length) {
+            showQuestion()
+
+        } else {
+            showResult()
+        }
+    }, 1000)
+}
+function showResult() {
+    quizScreen.classList.remove("active")
+    resultScreen.classList.add("active")
+    finalScoreSpan.textContent = score;
+    const percentage = (score / currentQuizQuestion.length) * 100
+    if (percentage === 100) {
+        resultMessage.textContent = "Perfect! You're a genius!";
+    } else if (percentage >= 80) {
+        resultMessage.textContent = "Great job! You know your stuff!";
+    } else if (percentage >= 60) {
+        resultMessage.textContent = "Good effort! Keep learning!";
+    } else if (percentage >= 40) {
+        resultMessage.textContent = "Not bad! Try again to improve!";
+    } else {
+        resultMessage.textContent = "Keep studying! You'll get better!";
+    }
+    ChannelMe
 }
 function restartQuiz() {
-    console.log(" Quiz restarted")
+    resultScreen.classList.remove("active");
+    startQuiz();
 }
-
 
 
 
