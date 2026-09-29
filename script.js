@@ -177,14 +177,16 @@ const allQuestions = [
             { text: "Mount Fuji", correct: false }
         ]
     },
-    {
-        question: "Which of these is NOT a primary color?",
-        answers: [
-            { text: "Red", correct: false },
-            { text: "Blue", correct: false },
-            { text: "Green", correct: true },
-            { text: "Yellow", correct: false }
-        ]
+    
+        {
+    question: "In the traditional (RYB) color model, which of these is NOT a primary color?",
+    answers: [
+        { text: "Red", correct: false },
+        { text: "Blue", correct: false },
+        { text: "Green", correct: true },
+        { text: "Yellow", correct: false }
+    ]
+
     },
     {
         question: "Who invented the telephone?",
